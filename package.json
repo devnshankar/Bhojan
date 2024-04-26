@@ -1,0 +1,37 @@
+
+{
+  "name": "bhojanserver",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "delete-db-data": "sudo rm -rf data",
+    "dbon": "docker compose up -d",
+    "prisma": "npx prisma generate",
+    "server": "nodemon src/index.js",
+    "prisma-studio": "npx prisma studio",
+    "prisma-migrate": "npx prisma migrate dev --name data",
+    "prisma-format": "npx prisma format",
+    "client": "npm run dev --prefix bhojanclient",
+    "dboff": "docker compose down",
+    "dev-init": "concurrently  \"npm run dbon\" \"npm run prisma\" \"npm run prisma-format\" \"npm run prisma-migrate\"  \"npm run server\" \"npm run client\" \"npm run prisma-studio\"",
+    "dev-reset": "concurrently  \"npm run delete-db-data\"  \"npm run dbon\" \"npm run prisma\" \"npm run prisma-migrate\"  \"npm run prisma-format\" \"npm run server\" \"npm run client\" \"npm run prisma-studio\"",
+    "dev": "concurrently  \"npm run dbon\" \"npm run server\" \"npm run client\" \"npm run prisma-studio\"",
+    "devoff": "npm run dboff"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.12.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.13",
+    "prisma": "^5.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
